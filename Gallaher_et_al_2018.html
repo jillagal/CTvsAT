@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--<meta charset="utf-8">-->
+    <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
+    <title>Adaptive vs. continuous therapy</title>
+    <link href="css/test.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-1.2.0.min.js"></script>
+  </head>
+
+  <body class="application", background="img/squared_metal.png">
+	<!-- Selections!!!! -->
+  	<div class="container-fluid">
+	  <div class="row">
+      	<div class="col-1">
+      	  <div class="chart-wrapper">
+          <!-- New row -->
+    		<div class="graphrow">
+      		<div class='graphcell'>
+      		<div class="col-sm-8">
+      		<div class="chart-wrapper">
+          	<div class="chart-title">
+          	</div>
+          <div class="chart-stage">
+          <div id="grid-1-1"> 
+            <div>
+            <!-- BEGIN CHART AREA -->      
+            <table style="width:100%">
+            <tr>
+              <th> <font size="5">Spatial heterogeneity and evolutionary dynamics modulate time to recurrence in continuous and adaptive cancer therapies </font><br />
+              </th>
+            </tr>
+            <tr>
+                <th> <font size="2">J. Gallaher, P. M. Enriquez-Navas, K. A. Luddy, R. A. Gatenby, and A. R. A. Anderson</font> </th>
+            </tr>  
+            </table>
+                  
+            <!-- END CHART AREA -->
+              </div>
+            </div>
+          </div>
+          <div class="chart-notes">
+            <!-- Begin Chart Notes -->
+            <center>
+              <th> <font size="2">Comparing continuous treatment (CT), adaptive therapy emphasizing dose modulation (AT1), & adaptive therapy emphasizing treatment vacations (AT2) </font> </th>
+            <center>
+                 <select style="background-color:#FFFF00;" id="videoSelect">
+                  <option selected="">Select Option to Continue</option>
+                  <option value="1">Fig3A/4A: Sensitive Homogeneous</option>
+                  <option value="2">Fig3B: Sensitive Heterogeneous</option>
+                  <option value="3">Fig3C: Resistant Homogeneous</option>
+                  <option value="4">Fig3D: Resistant Heterogeneous</option>
+                  <option value="5">Fig5A: Sensitive Heterogeneous Invasive</option>
+                  <option value="6">Fig6A: Sensitive Heterogeneous Drift</option>
+                  </select>
+                  <!--<button id="controlButton" onclick="playControl()">Play</button>-->
+                  <input onclick="playControl()" type="button" value="Play" id="controlButton"/> 
+                  <input type="range" id="seek-bar" value="0">
+
+                 <img id="textSrc" src='img/t0.png' width=30%></img>
+            </center>
+            <!-- END CHART NOTES -->
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- END ROW -->
+      </div>
+          
+        
+      </div>
+      <!-- END ROW 1 -->
+    </div>
+
+    <!-- New row -->
+    <div class="graphrow">
+      
+      <div class='graphcell'>
+      <div class="col-sm-8">
+      <div class="chart-wrapper">
+          <div class="chart-title">
+            
+          </div>
+          <div class="chart-stage">
+            <div id="grid-1-1"> 
+              <div>
+                <!-- BEGIN CHART AREA   style="display:inline-block"-->
+                    <!--head-->
+                    <div width="100%" style="text-align:center;">
+                      <img id="head1" width="5%" style="text-align:center;"></img> 
+                      <img id="head2" width="80%" style="text-align:center;"></img>
+                    </div>
+
+                    <!--time-->
+                    <div width="100%" style="text-align:center;">
+                      <img id="time" width="5%" style="text-align:center;"></img>
+                      <video style="text-align:center;" id="movT" width="80%"> 
+                        <source id="srcT" type="video/mp4" >
+                        <source id="srcTo" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+
+                    <!--dose-->
+                    <div width="100%" style="text-align:center;">
+                      <img id="dose" width=5% style="text-align:center;"></img>
+                      <video style="text-align:center;" margin: 0 auto;" id="mov0" width=80%> 
+                        <source id="src0" type="video/mp4">
+                        <source id="src0o" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+
+                    <!--spatial-->
+                    <div width="100%" style="text-align:center;">
+                      <img id="space" width="5%" style="text-align:center;"></img>
+                      <video style="text-align:center;" id="mov1" width="80%"> 
+                        <source id="src1" type="video/mp4">
+                        <source id="src1o" type="video/ogg">
+                        Your browser does not support the video tag.
+                      </video>
+                  	</div>
+
+                  	<!--freq distos-->
+                  	<div width="100%" style="text-align:center;">
+                  		<img id="freq" width=5% style="text-align:center;"></img>
+                  		<video style="text-align:center;" id="mov2" width=80%> 
+                    		<source id="src2" type="video/mp4">
+                    		<source id="src2o" type="video/ogg">
+                    		Your browser does not support the video tag.
+                  		</video>
+                	</div>
+
+                	<!--key-->
+                	<div width="100%" style="text-align:center;">
+                  		<img id="foot1" width=5% style="text-align:center;"></img>     
+                  	<img style="text-align:center;" id="foot2" width=80%></img>
+                	</div> 
+
+                  
+                	<!-- END CHART AREA -->
+              	</div>
+            </div>
+          </div>
+          <div class="chart-notes">
+            <!-- Begin Chart Notes -->
+
+            <!-- END CHART NOTES -->
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <!-- END ROW -->
+      </div>
+
+    
+    <!-- END CONTAINER-FLUID -->
+    </div>
+
+
+    <script type="text/javascript">
+
+        /////   VARIABLES   ///////////////	
+
+        var videobutton = document.getElementById("videoSelect");
+        var seekBar = document.getElementById("seek-bar");
+
+        var myVideoT = document.getElementById("movT");
+        var myVideo0 = document.getElementById("mov0");
+        var myVideo1 = document.getElementById("mov1");
+        var myVideo2 = document.getElementById("mov2");
+
+        //var videocontainerT = document.getElementById('movT');
+        var videosourceT = document.getElementById('srcT');
+        var videosourceTo = document.getElementById('srcTo');
+        //var videocontainer0 = document.getElementById('mov0');
+        var videosource0 = document.getElementById('src0');
+        var videosource0o = document.getElementById('src0o');
+        //var videocontainer1 = document.getElementById('mov1');
+        var videosource1 = document.getElementById('src1');
+        var videosource1o = document.getElementById('src1o');
+        //var videocontainer2 = document.getElementById('mov2');
+        var videosource2 = document.getElementById('src2');
+        var videosource2o = document.getElementById('src2o');
+
+        var textsource = document.getElementById('textSrc');
+
+        var headsrc1 = document.getElementById('head1');
+        var headsrc2 = document.getElementById('head2');
+        var timesrc = document.getElementById('time');
+        var dosesrc = document.getElementById('dose');
+        var spacesrc = document.getElementById('space');
+        var freqsrc = document.getElementById('freq');
+        var footsrc1 = document.getElementById('foot1');
+        var footsrc2 = document.getElementById('foot2');
+
+        var buttonVal;
+
+        var v1 = new Array();
+        v1=[['10_1time','10_1dose','10_1mov','10_1hist'],
+            ['10_5time','10_5dose','10_5mov','10_5hist'],
+            ['26_1time','26_1dose','26_1mov','26_1hist'],
+            ['26_5time','26_5dose','26_5mov','26_5hist'],
+            ['10_5Mtime','10_5Mdose','10_5Mmov','10_5Mhist'],
+            ['18_5Dtime','18_5Ddose','18_5Dmov','18_5Dhist']];
+        t1=['1','2','3','4','5','6'];
+
+        /////   EVENT LISTENERS    /////////
+ 
+        videobutton.addEventListener("change", function(event) {
+          	pauseVids();
+
+          	buttonVal = videobutton.value;
+          	videobutton.setAttribute("style", "background-color: white;");
+        	loadSource();
+        }, false);
+
+        seekBar.addEventListener("input", function() {
+        	// Calculate the new time
+        	var time = myVideo1.duration * (seekBar.value / 100);
+	       	myVideoT.currentTime = time;
+	        myVideo0.currentTime = time;
+	        myVideo1.currentTime = time;
+	        myVideo2.currentTime = time;
+
+        	// Update the video time
+        	// videocontainer1.currentTime = time;
+        	// videocontainer2.currentTime = time;
+        	// videocontainer3.currentTime = time;
+        	// videocontainer4.currentTime = time;
+        	// videocontainer5.currentTime = time;
+        	pauseVids();
+      	});
+
+      	/////   FUNCTIONS.   /////////////////
+
+        function loadSource() {
+        	pauseVids();
+
+          	var vidID = buttonVal-1;
+          	
+          	videosourceT.setAttribute('src', 'newMovs/mp4/'+v1[vidID][0]+'.mp4');//
+          	videosourceTo.setAttribute('src', 'newMovs/ogg/'+v1[vidID][0]+'.ogg');
+          
+          	videosource0.setAttribute('src', 'newMovs/mp4/'+v1[vidID][1]+'.mp4');//
+          	videosource0o.setAttribute('src', 'newMovs/ogg/'+v1[vidID][1]+'.ogg');
+          	
+          	videosource1.setAttribute('src', 'newMovs/mp4/'+v1[vidID][2]+'.mp4');//
+          	videosource1o.setAttribute('src', 'newMovs/ogg/'+v1[vidID][2]+'.ogg');
+          	
+          	videosource2.setAttribute('src', 'newMovs/mp4/'+v1[vidID][3]+'.mp4');//
+          	videosource2o.setAttribute('src', 'newMovs/ogg/'+v1[vidID][3]+'.ogg');
+
+          	myVideoT.load();
+          	myVideo0.load();
+          	myVideo1.load();
+          	myVideo2.load();
+          	textsource.setAttribute('src','img/t'+t1[vidID]+'.png');
+
+          	seekBar.value=0;
+
+          	headsrc1.setAttribute('src', 'img/blank.png');
+          	headsrc2.setAttribute('src', 'img/head.png');
+          	timesrc.setAttribute('src', 'img/time.png');
+          	dosesrc.setAttribute('src', 'img/dose.png');
+          	spacesrc.setAttribute('src', 'img/blank.png');
+          	freqsrc.setAttribute('src', 'img/freq.png');
+          	footsrc1.setAttribute('src', 'img/blank.png');
+          	footsrc2.setAttribute('src', 'img/foot.png');
+      	}
+
+        function moveSeekBar() { 
+        	var val = 0;
+        	var id = setInterval(frame, 10);
+        	function frame() {
+          		if (val >= 100 || myVideo1.paused) {
+            		pauseVids();
+            		clearInterval(id);
+          		} 
+          		else {
+            		val=100*myVideo1.currentTime/myVideo1.duration; 
+            		seekBar.value=val;
+          		}
+        	}
+      	}
+
+        function playControl() { 
+          if (myVideo1.paused) { 
+            myVideoT.play();
+            myVideo0.play();
+            myVideo1.play();
+            myVideo2.play(); 
+            document.getElementById("controlButton").value = 'Pause';
+            moveSeekBar();
+          } 
+          else { 
+            pauseVids();
+          }
+        } 
+
+        function pauseVids() { 
+        	myVideoT.pause();
+          	myVideo0.pause();
+          	myVideo1.pause();
+          	myVideo2.pause();
+        	document.getElementById("controlButton").value = 'Play';
+      	} 
+         
+        </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  </body>
+
+</html>
